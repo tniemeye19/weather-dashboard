@@ -11,7 +11,23 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
+    <header class="h-background">
+        <h1>Weather Dashboard</h1>
+    </header>
     
+    <main class="flex-row">
+        <div class="col-12 col-md-4">
+            <div>
+                <h3>Search for a City:</h3>
+                <form id="user-form-input">
+                    <label for="city"></label>
+                    <input name="city" id="city" type="text" autofocus="true" />
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
     <script src="assets/js/script.js"></script>
 </body>
 </html>
