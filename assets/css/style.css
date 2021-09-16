@@ -1,0 +1,20 @@
+:root {
+    --primary: #fcfcfc;
+    
+}
+body {
+    background-color: var(--primary);
+    margin: 10px;
+    padding: 0;
+}
+
+.h-background {
+    background-image: linear-gradient(to top right, #07a8f3, #0805a3);
+    color: var(--primary);
+    text-align: center;
+    height: 50px;
+}
+
+.btn {
+    width: 90%;
+}
