@@ -8,12 +8,9 @@ var currentTempEl = document.querySelector("#temperature-value");
 var currentHumidityEl = document.querySelector("#humidity-value");
 var currentWindSpeedEl = document.querySelector("#wind-speed-value");
 var currentUVIndexEl = document.querySelector("#uv-index-value");
-var dayOneForecastEl = document.querySelector("#day-one-forecast");
-var dayTwoForecastEl = document.querySelector("#day-two-forecast");
-var dayThreeForecastEl = document.querySelector("#day-three-forecast");
-var dayFourForecastEl = document.querySelector("#day-four-forecast");
-var dayFiveForecastEl = document.querySelector("#day-five-forecast");
 
+var forecastContainerEl = document.querySelector("#weather-forecast-container");
+forecastContainerEl.addClass = "row";
 
 function getWeather(city) {
 
@@ -39,8 +36,8 @@ function getWeather(city) {
                 .then(function(data) {
                     console.log("weather", data);
 
-                    var weatherIcon = data.current.weather[0].icon;
-                    currentWeatherIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
+                    var currentWeatherIcon = data.current.weather[0].icon;
+                    currentWeatherIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + currentWeatherIcon + "@2x.png");
                    
                     currentTempEl.innerHTML = data.current.temp + " °F";
                     currentHumidityEl.innerHTML = data.current.humidity + " %";
@@ -59,18 +56,65 @@ function getWeather(city) {
                     }
 
                     // 5 cards created for each day of forecast with unique id
-                    var cardBody = document.createElement("div");
-                    var cardTitle = document.createElement("h5");
-                    var cardIcon = document.createElement("img");
-                    var cardTemp = document.createElement("p");
-                    var cardWind = document.createElement("p");
-                    var cardHumidity = document.createElement("p");
+
 
                     // loop through creating the card for each data value needed for card
-                    for (i= 0; i <=4; i++) {
-                        
-                    }
 
+                    function addCard() {
+
+                        for (i= 0; i <=4; i++) {
+                            // create a new card
+                            var newCard = document.createElement("div");
+                            newCard.className = "card";
+                            newCard.setAttribute("id", "card-style");
+                            forecastContainerEl.appendChild(newCard);
+
+                            // create the card body for card
+                            var cardBody = document.createElement("div");
+                            cardBody.className = "card-body";
+
+                            // create title element for card
+                            var cardTitle = document.createElement("h5");
+                            cardTitle.className = "day-title";
+                            cardTitle.innerHTML = "";
+
+                            // create img element for card
+                            var cardIcon = document.createElement("img");
+                            cardIcon.className = "day-icon";
+                            var dailyWeatherIcon = data.daily[i].weather[0].icon;
+                            cardIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + dailyWeatherIcon + "@2x.png");
+
+
+                            // create temp element for card
+                            var cardTemp = document.createElement("p");
+                            cardTemp.className = "day-temp";
+                            cardTemp.innerHTML = "Temp: " + data.daily[i].temp.max + " °F";
+
+                            // create wind element for card
+                            var cardWind = document.createElement("p");
+                            cardWind.className = "day-wind";
+                            cardWind.innerHTML = "Wind: " + data.daily[i].wind_speed + "mph";
+                            console.log(data.daily[i].wind_speed);
+
+                            // create humidity element for card
+                            var cardHumidity = document.createElement("p");
+                            cardHumidity.className = "day-humidity";
+                            cardHumidity.innerHTML = "Humidity: " + data.daily[i].humidity + "%";
+
+
+                            // append elements to each card
+                            newCard.appendChild(cardBody);
+                            cardBody.appendChild(cardTitle);
+                            cardBody.appendChild(cardIcon);
+                            cardBody.appendChild(cardTemp);
+                            cardBody.appendChild(cardWind);
+                            cardBody.appendChild(cardHumidity);
+
+                        }
+
+
+                    }
+                    addCard();
 
                 })
         })

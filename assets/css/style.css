@@ -30,10 +30,24 @@ body {
 
 #uv-index-value {
     display: inline-block;
-    color: var(--secondary);
+    /* color: var(--secondary); */
     width: fit-content;
     border-radius: 3px;
     padding: 0 5px;
 
-    
+}
+
+#card-style {
+    width: 200px;
+
+}
+
+#weather-forecast-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    background-color: #232758;
+    color: var(--secondary);
 }
