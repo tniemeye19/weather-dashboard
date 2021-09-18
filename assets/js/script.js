@@ -1,8 +1,9 @@
 var searchBtnEl = document.querySelector("#city-search");
 var cityEl = document.querySelector("#city");
 var searchedCityName = document.querySelector("#searched-city-name");
+var previousSearchContainerEl = document.querySelector("#previous-search-btns");
 var updatedForecastEl = document.querySelector("#updated-forecast");
-var currentDateEl = document.querySelector("#currentDate");
+var currentDateEl = document.querySelector("#current-date");
 var currentWeatherIconEl = document.querySelector("#weather-icon");
 var currentTempEl = document.querySelector("#temperature-value");
 var currentHumidityEl = document.querySelector("#humidity-value");
@@ -44,7 +45,6 @@ function getWeather(city) {
                     currentWindSpeedEl.innerHTML = data.current.wind_speed + " mph";
 
                     currentUVIndexEl.innerHTML = data.current.uvi; 
-                    console.log("UVI", data.current.uvi);
                     if (data.current.uvi <= 3) {
                         currentUVIndexEl.style.backgroundColor = "green";
                     } else if (data.current.uvi > 3 && data.current.uvi <= 6) {
@@ -60,7 +60,7 @@ function getWeather(city) {
 
                     // loop through creating the card for each data value needed for card
 
-                    function addCard() {
+                    function addCards() {
 
                         for (i= 0; i <=4; i++) {
                             // create a new card
@@ -76,7 +76,8 @@ function getWeather(city) {
                             // create title element for card
                             var cardTitle = document.createElement("h5");
                             cardTitle.className = "day-title";
-                            cardTitle.innerHTML = "";
+                            var currentDate = moment().add(i + 1, 'days').format("(MM/DD/YYYY)");
+                            cardTitle.innerHTML = currentDate;
 
                             // create img element for card
                             var cardIcon = document.createElement("img");
@@ -94,7 +95,6 @@ function getWeather(city) {
                             var cardWind = document.createElement("p");
                             cardWind.className = "day-wind";
                             cardWind.innerHTML = "Wind: " + data.daily[i].wind_speed + "mph";
-                            console.log(data.daily[i].wind_speed);
 
                             // create humidity element for card
                             var cardHumidity = document.createElement("p");
@@ -114,7 +114,9 @@ function getWeather(city) {
 
 
                     }
-                    addCard();
+                    addCards();
+
+                    
 
                 })
         })
@@ -126,7 +128,13 @@ searchBtnEl.addEventListener("click", function(event) {
     var searchedCity = cityEl.value;
     getWeather(searchedCity);
     searchedCityName.innerHTML = searchedCity;
+    var currentDate = moment().format("(MM/DD/YYYY)");
+    console.log("Current date: ", currentDate);
+    currentDateEl.innerText = currentDate;
 
-
+    var lastSearchEl = document.createElement("div");
+    lastSearchEl.addClass = "previous-search";
+    lastSearchEl.innerHTML = searchedCity;
+    previousSearchContainerEl.appendChild(lastSearchEl);
 
 });

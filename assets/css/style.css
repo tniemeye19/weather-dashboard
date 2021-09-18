@@ -20,22 +20,31 @@ body {
 
     background-color: #07a8f3;
     color: var(--secondary);
+    display: block;
 
 }
 
-#weather-icon {
+/* #weather-icon {
     height: 50px;
     width: 50px;
-}
+} */
 
 #uv-index-value {
     display: inline-block;
-    /* color: var(--secondary); */
     width: fit-content;
     border-radius: 3px;
     padding: 0 5px;
 
 }
+
+#searched-city-name,
+#current-date,
+#weather-icon {
+    display: inline-block;
+    margin: 5px;
+}
+
+
 
 #card-style {
     width: 200px;
@@ -50,4 +59,5 @@ body {
 .card {
     background-color: #232758;
     color: var(--secondary);
+    margin: 2px;
 }

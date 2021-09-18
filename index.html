@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Stylesheet for fonts? -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha512-UyNhw5RNpQaCai2EdC+Js0QL4RlVmiq41DkmCJsRV3ZxipG2L0HhTqIf/H9Hp8ez2EnFlkBnjRGJU2stW3Lj+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <title>Weather Dashboard</title>
@@ -24,14 +22,15 @@
                     <input name="city" id="city" type="text" autofocus="true" placeholder="Enter city here" class="form-input" />
                     <button type="submit" class="btn mt-1" id="city-search">Search</button>
                 </form>
-                <div class="previous-search" id="previous-search-btns"></div>
+                <div id="previous-search-btns"></div>
             </div>
 
             <div class="col-9">
 
                 <div class="row searched-city border mr-1" id="updated-forecast">
                     <div class="col-12">
-                        <h2 id="searched-city-name"> <span id="current-date"></span></h2>
+                        <h2 id="searched-city-name"></h2>
+                        <h2 id="current-date"></h2>
                         <img id="weather-icon"></img>
                         <div id="updated-forecast-box">
                             <p>Temperature: <span id="temperature-value"></span></p>
@@ -50,7 +49,7 @@
             </div>
         </div>
     </main>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
