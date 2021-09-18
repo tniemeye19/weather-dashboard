@@ -1,12 +1,13 @@
 var searchBtnEl = document.querySelector("#city-search");
 var cityEl = document.querySelector("#city");
 var searchedCityName = document.querySelector("#searched-city-name");
+var updatedForecastEl = document.querySelector("#updated-forecast");
 var currentDateEl = document.querySelector("#currentDate");
-var weatherIconEl = document.querySelector("#weather-icon");
-var currentTempEl = document.querySelector("#temperature");
-var currentHumidityEl = document.querySelector("#humidity");
-var currentWindSpeedEl = document.querySelector("#wind-speed");
-var currentUVIndexEl = document.querySelector("#uv-index");
+var currentWeatherIconEl = document.querySelector("#weather-icon");
+var currentTempEl = document.querySelector("#temperature-value");
+var currentHumidityEl = document.querySelector("#humidity-value");
+var currentWindSpeedEl = document.querySelector("#wind-speed-value");
+var currentUVIndexEl = document.querySelector("#uv-index-value");
 
 function getWeather(city) {
 
@@ -32,10 +33,27 @@ function getWeather(city) {
                 .then(function(data) {
                     console.log("weather", data);
 
-                    currentTempEl.innerHTML = "Temperature: " + data.current.temp + "°F";
-                    currentHumidityEl.innerHTML = "Humidity: " + data.current.humidity + "%";
-                    currentWindSpeedEl.innerHTML = "Wind Speed: " + data.current.wind_speed + "MPH";
-                    currentUVIndexEl.innerHTML = "UV-Index: " + data.current.uvi; 
+                    var weatherIcon = data.current.weather[0].icon;
+                    currentWeatherIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
+                   
+                    currentTempEl.innerHTML = data.current.temp + " °F";
+                    currentHumidityEl.innerHTML = data.current.humidity + " %";
+                    currentWindSpeedEl.innerHTML = data.current.wind_speed + " mph";
+
+                    currentUVIndexEl.innerHTML = data.current.uvi; 
+                    console.log("UVI", data.current.uvi);
+                    if (data.current.uvi <= 3) {
+                        currentUVIndexEl.style.backgroundColor = "green";
+                    } else if (data.current.uvi > 3 && data.current.uvi <= 6) {
+                        currentUVIndexEl.style.backgroundColor = "yellow";
+                    } else if (data.current.uvi > 6 && data.current.uvi <= 8) {
+                        currentUVIndexEl.style.backgroundColor = "orange";
+                    } else {
+                        currentUVIndexEl.style.backgroundColor = "red";
+                    }
+
+                    
+
                 })
         })
 
@@ -46,5 +64,7 @@ searchBtnEl.addEventListener("click", function(event) {
     var searchedCity = cityEl.value;
     getWeather(searchedCity);
     searchedCityName.innerHTML = searchedCity;
+
+
 
 });

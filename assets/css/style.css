@@ -1,5 +1,6 @@
 :root {
-    --primary: #fcfcfc;
+    --primary: #afabab;
+    --secondary: #fcfcfc;
     
 }
 body {
@@ -9,8 +10,8 @@ body {
 }
 
 .h-background {
-    background-image: linear-gradient(to top right, #07a8f3, #0805a3);
-    color: var(--primary);
+    background-image: linear-gradient(to top right, #1b5dc0, #3405a3);
+    color: var(--secondary);
     text-align: center;
     height: 50px;
 }
@@ -18,6 +19,21 @@ body {
 .btn {
 
     background-color: #07a8f3;
-    color: var(--primary);
+    color: var(--secondary);
 
+}
+
+#weather-icon {
+    height: 50px;
+    width: 50px;
+}
+
+#uv-index-value {
+    display: inline-block;
+    color: var(--secondary);
+    width: fit-content;
+    border-radius: 3px;
+    padding: 0 5px;
+
+    
 }
