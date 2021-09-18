@@ -8,6 +8,12 @@ var currentTempEl = document.querySelector("#temperature-value");
 var currentHumidityEl = document.querySelector("#humidity-value");
 var currentWindSpeedEl = document.querySelector("#wind-speed-value");
 var currentUVIndexEl = document.querySelector("#uv-index-value");
+var dayOneForecastEl = document.querySelector("#day-one-forecast");
+var dayTwoForecastEl = document.querySelector("#day-two-forecast");
+var dayThreeForecastEl = document.querySelector("#day-three-forecast");
+var dayFourForecastEl = document.querySelector("#day-four-forecast");
+var dayFiveForecastEl = document.querySelector("#day-five-forecast");
+
 
 function getWeather(city) {
 
@@ -52,7 +58,19 @@ function getWeather(city) {
                         currentUVIndexEl.style.backgroundColor = "red";
                     }
 
-                    
+                    // 5 cards created for each day of forecast with unique id
+                    var cardBody = document.createElement("div");
+                    var cardTitle = document.createElement("h5");
+                    var cardIcon = document.createElement("img");
+                    var cardTemp = document.createElement("p");
+                    var cardWind = document.createElement("p");
+                    var cardHumidity = document.createElement("p");
+
+                    // loop through creating the card for each data value needed for card
+                    for (i= 0; i <=4; i++) {
+                        
+                    }
+
 
                 })
         })
