@@ -57,6 +57,7 @@ body {
     text-align: center;
     border-radius: 5px;
     margin-top: 5px;
+    cursor: pointer;
 }
 
 #card-style {
