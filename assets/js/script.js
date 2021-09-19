@@ -1,3 +1,4 @@
+// Initialize variables from html for use in js
 var searchBtnEl = document.querySelector("#city-search");
 var cityEl = document.querySelector("#city");
 var searchedCityName = document.querySelector("#searched-city-name");
@@ -9,27 +10,33 @@ var currentTempEl = document.querySelector("#temperature-value");
 var currentHumidityEl = document.querySelector("#humidity-value");
 var currentWindSpeedEl = document.querySelector("#wind-speed-value");
 var currentUVIndexEl = document.querySelector("#uv-index-value");
-
 var forecastContainerEl = document.querySelector("#weather-forecast-container");
 forecastContainerEl.addClass = "row";
 
+// create function to get the weather
 function getWeather(city) {
 
     var apiKey = '91d4161a1433d45e7d7152f7adf492fd'
 
     var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`
-
+    // this fetch refers to the lat/lon
     fetch(requestUrl)
         .then(function(response) {
            return response.json()
         })
         .then(function(data){
+            if (data.length === 0) {
+                alert("Please check your spelling!");
+
+            } else {
+
+            }
             console.log("location", data)
             var lon = data[0].lon
             var lat= data[0].lat
 
             var cityWeatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
-        
+            // using lat/lon, search for weather
             fetch(cityWeatherUrl)
                 .then(function(response) {
                     return response.json()
@@ -37,13 +44,16 @@ function getWeather(city) {
                 .then(function(data) {
                     console.log("weather", data);
 
+                    // set weather icon for current day
                     var currentWeatherIcon = data.current.weather[0].icon;
                     currentWeatherIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + currentWeatherIcon + "@2x.png");
                    
+                    // set data for current day
                     currentTempEl.innerHTML = data.current.temp + " °F";
                     currentHumidityEl.innerHTML = data.current.humidity + " %";
                     currentWindSpeedEl.innerHTML = data.current.wind_speed + " mph";
 
+                    // set uv index logic for current day
                     currentUVIndexEl.innerHTML = data.current.uvi; 
                     if (data.current.uvi <= 3) {
                         currentUVIndexEl.style.backgroundColor = "green";
@@ -55,13 +65,13 @@ function getWeather(city) {
                         currentUVIndexEl.style.backgroundColor = "red";
                     }
 
-                    // 5 cards created for each day of forecast with unique id
-
-
                     // loop through creating the card for each data value needed for card
-
                     function addCards() {
 
+                        // clear out any info when search initiated again
+                        forecastContainerEl.innerHTML = "";
+
+                        // dynamically created elements for 5 day forecast
                         for (i= 0; i <=4; i++) {
                             // create a new card
                             var newCard = document.createElement("div");
@@ -84,7 +94,6 @@ function getWeather(city) {
                             cardIcon.className = "day-icon";
                             var dailyWeatherIcon = data.daily[i].weather[0].icon;
                             cardIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + dailyWeatherIcon + "@2x.png");
-
 
                             // create temp element for card
                             var cardTemp = document.createElement("p");
@@ -112,29 +121,48 @@ function getWeather(city) {
 
                         }
 
-
                     }
-                    addCards();
 
-                    
+                    addCards();
 
                 })
         })
-
 }
 
-searchBtnEl.addEventListener("click", function(event) {
+function searchForCityClick(event) {
     event.preventDefault();
+
+    forecastContainerEl.innerHTML = ""; 
+
+    // get value from input and set to appropriate html element
     var searchedCity = cityEl.value;
     getWeather(searchedCity);
     searchedCityName.innerHTML = searchedCity;
+    console.log(searchedCityName);
+
+    // get current date and set to appropriate hmtl element
     var currentDate = moment().format("(MM/DD/YYYY)");
     console.log("Current date: ", currentDate);
     currentDateEl.innerText = currentDate;
 
+    // for each previous search, create new div that shows what was searched for
     var lastSearchEl = document.createElement("div");
-    lastSearchEl.addClass = "previous-search";
+    lastSearchEl.setAttribute("id", "previous-search");
     lastSearchEl.innerHTML = searchedCity;
     previousSearchContainerEl.appendChild(lastSearchEl);
 
-});
+    var cityArr = [];
+    localStorage.setItem('city', JSON.stringify(searchedCity));
+    
+    function renderCityData() {
+        var userCityInput = localStorage.getItem('city')
+
+    }
+
+    renderCityData();
+}
+
+// when search button is clicked, run this function
+searchBtnEl.addEventListener("click", searchForCityClick);
+
+

@@ -4,7 +4,7 @@
     
 }
 body {
-    background-color: var(--primary);
+    background-color: var(--secondary);
     margin: 0;
     padding: 0;
 }
@@ -16,25 +16,25 @@ body {
     height: 50px;
 }
 
+.search {
+    padding: 0 0 5px 0;
+    border-bottom: 3px solid var(--secondary);
+}
+
+#city {
+    display: block;
+    max-width: 65%;
+}
 .btn {
 
     background-color: #07a8f3;
     color: var(--secondary);
     display: block;
-
+    min-width: 65%;
 }
 
-/* #weather-icon {
-    height: 50px;
-    width: 50px;
-} */
-
-#uv-index-value {
-    display: inline-block;
-    width: fit-content;
-    border-radius: 3px;
-    padding: 0 5px;
-
+.searched-city {
+    background-color: var(--primary);
 }
 
 #searched-city-name,
@@ -44,11 +44,23 @@ body {
     margin: 5px;
 }
 
+#uv-index-value {
+    display: inline-block;
+    width: fit-content;
+    border-radius: 3px;
+    padding: 0 5px;
+    color: var(--secondary);
+}
 
+#previous-search {
+    background-color: var(--primary);
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 5px;
+}
 
 #card-style {
     width: 200px;
-
 }
 
 #weather-forecast-container {
@@ -61,3 +73,4 @@ body {
     color: var(--secondary);
     margin: 2px;
 }
+
