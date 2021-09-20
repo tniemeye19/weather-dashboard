@@ -18,7 +18,7 @@ function getWeather(city) {
 
     var apiKey = '91d4161a1433d45e7d7152f7adf492fd'
 
-    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`
+    var requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`
     // this fetch refers to the lat/lon
     fetch(requestUrl)
         .then(function(response) {
