@@ -14,7 +14,6 @@ var forecastContainerEl = document.querySelector("#weather-forecast-container");
 forecastContainerEl.addClass = "row";
 var lastSearchEl;
 
-
 var savedCities = JSON.parse(localStorage.getItem('cities')) || [];
 
 function buildCity(data) {
@@ -61,7 +60,17 @@ function getWeather(city) {
                
                 console.log("location", data);
 
-                buildExistingCities(data);
+                if (savedCities.includes(data[0].name)) {
+                    console.log('Do nothing');
+                } else {
+                    savedCities.push(data[0].name)
+
+                    localStorage.setItem('cities', JSON.stringify(savedCities));
+                    buildExistingCities(data);
+                    console.log('make div')
+                }
+
+
                 
                 // get current date and set to appropriate hmtl element
                 var currentDate = moment().format("(MM/DD/YYYY)");
@@ -179,10 +188,6 @@ function searchForCityClick(event) {
     var searchedCity = cityEl.value;
     getWeather(searchedCity);
     searchedCityName.innerHTML = searchedCity;
-
-    savedCities.push(searchedCity)
-
-    localStorage.setItem('cities', JSON.stringify(savedCities));
 
 }
 
