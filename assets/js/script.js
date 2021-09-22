@@ -16,18 +16,26 @@ forecastContainerEl.addClass = "row";
 
 var savedCities = JSON.parse(localStorage.getItem('cities')) || [];
 
-function loadSavedCities(data){
-    savedCities.forEach(function(element){
-        
+function buildCity(data) {
         // for each previous search, create new div that shows what was searched for
         var lastSearchEl = document.createElement("div");
         lastSearchEl.setAttribute("id", "previous-search");
         lastSearchEl.innerHTML = data[0].name;
         previousSearchContainerEl.appendChild(lastSearchEl);
-        
-    })
+
+        lastSearchEl.addEventListener("click", function() {
+            var previousCity = lastSearchEl.innerHTML;
+            getWeather(previousCity);
+            searchedCityName.innerHTML = previousCity;
+
+        })
 }
 
+function buildExistingCities(data) {
+    for (i = 1; i <= localStorage.length; i++) {
+        buildCity(data);
+    }
+}
 
 // create function to get the weather
 function getWeather(city) {
@@ -51,8 +59,8 @@ function getWeather(city) {
                
                 console.log("location", data);
 
-                loadSavedCities(data);
-
+                buildExistingCities(data);
+                
                 // get current date and set to appropriate hmtl element
                 var currentDate = moment().format("(MM/DD/YYYY)");
                 console.log("Current date: ", currentDate);
@@ -155,6 +163,8 @@ function getWeather(city) {
                         addCards();
     
                     })
+
+
             }
 
         })
