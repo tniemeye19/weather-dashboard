@@ -12,27 +12,29 @@ var currentWindSpeedEl = document.querySelector("#wind-speed-value");
 var currentUVIndexEl = document.querySelector("#uv-index-value");
 var forecastContainerEl = document.querySelector("#weather-forecast-container");
 forecastContainerEl.addClass = "row";
+var lastSearchEl;
 
 
 var savedCities = JSON.parse(localStorage.getItem('cities')) || [];
 
 function buildCity(data) {
-        // for each previous search, create new div that shows what was searched for
-        var lastSearchEl = document.createElement("div");
-        lastSearchEl.setAttribute("id", "previous-search");
-        lastSearchEl.innerHTML = data[0].name;
-        previousSearchContainerEl.appendChild(lastSearchEl);
 
-        lastSearchEl.addEventListener("click", function() {
-            var previousCity = lastSearchEl.innerHTML;
-            getWeather(previousCity);
-            searchedCityName.innerHTML = previousCity;
+    // for each previous search, create new div that shows what was searched for
+    var lastSearchEl = document.createElement("div");
+    lastSearchEl.setAttribute("id", "previous-search");
+    lastSearchEl.innerHTML = data[0].name;
+    previousSearchContainerEl.appendChild(lastSearchEl);
 
-        })
+    lastSearchEl.addEventListener("click", function() {
+        var previousCity = lastSearchEl.innerHTML;
+        getWeather(previousCity);
+        searchedCityName.innerHTML = previousCity;
+
+    })
 }
 
 function buildExistingCities(data) {
-    for (i = 1; i <= localStorage.length; i++) {
+    for (var i = 1; i <= localStorage.length; i++) {
         buildCity(data);
     }
 }
@@ -179,6 +181,7 @@ function searchForCityClick(event) {
     searchedCityName.innerHTML = searchedCity;
 
     savedCities.push(searchedCity)
+
     localStorage.setItem('cities', JSON.stringify(savedCities));
 
 }
