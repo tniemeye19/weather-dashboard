@@ -13,6 +13,22 @@ var currentUVIndexEl = document.querySelector("#uv-index-value");
 var forecastContainerEl = document.querySelector("#weather-forecast-container");
 forecastContainerEl.addClass = "row";
 
+
+var savedCities = JSON.parse(localStorage.getItem('cities')) || [];
+
+function loadSavedCities(data){
+    savedCities.forEach(function(element){
+        
+        // for each previous search, create new div that shows what was searched for
+        var lastSearchEl = document.createElement("div");
+        lastSearchEl.setAttribute("id", "previous-search");
+        lastSearchEl.innerHTML = data[0].name;
+        previousSearchContainerEl.appendChild(lastSearchEl);
+        
+    })
+}
+
+
 // create function to get the weather
 function getWeather(city) {
 
@@ -31,18 +47,16 @@ function getWeather(city) {
                 alert("Please check your spelling!");
 
             } else {
-                console.log("location", data)
+
+               
+                console.log("location", data);
+
+                loadSavedCities(data);
 
                 // get current date and set to appropriate hmtl element
                 var currentDate = moment().format("(MM/DD/YYYY)");
                 console.log("Current date: ", currentDate);
                 currentDateEl.innerText = currentDate;
-
-                // for each previous search, create new div that shows what was searched for
-                var lastSearchEl = document.createElement("div");
-                lastSearchEl.setAttribute("id", "previous-search");
-                lastSearchEl.innerHTML = data[0].name;
-                previousSearchContainerEl.appendChild(lastSearchEl);
 
                 // initialize variables to get data from fetch for lat and lon
                 var lon = data[0].lon
@@ -153,17 +167,10 @@ function searchForCityClick(event) {
     var searchedCity = cityEl.value;
     getWeather(searchedCity);
     searchedCityName.innerHTML = searchedCity;
-    console.log(searchedCityName);
 
-    var cityArr = [];
-    localStorage.setItem('city', JSON.stringify(searchedCity));
-    
-    function renderCityData() {
-        var userCityInput = localStorage.getItem('city')
+    savedCities.push(searchedCity)
+    localStorage.setItem('cities', JSON.stringify(savedCities));
 
-    }
-
-    renderCityData();
 }
 
 function defaultPage() {
